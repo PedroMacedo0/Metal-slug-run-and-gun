@@ -225,8 +225,14 @@ Este documento registra o histórico de relatórios, diagnósticos, resoluções
     - **Status**: 🟢 **Resolvido / Validado**
     - **Solução Implementada**:
       - *Alinhamento ao Andaime Elevado*: Na Fase 3, o andaime metálico intermediário fica localizado em `x = 1200` com topo em `y = 300`. A coordenada Y do POW estava incorretamente como `y = 315` (pés em `y = 360`, pendurado no vazio). Ajustada a posição para `y = 255` em `js/main.js`, garantindo que os pés (`y + height = 255 + 45 = 300`) fiquem milimetricamente apoiados sobre a plataforma de aço.
-      - *Alinhamento Semelhante na Fase 2*: O terceiro POW da Fase 2 (`x = 2400`), posicionado na passarela de `y = 300`, também foi calibrado de `y = 315` para `y = 255`.
-      - *Gravidade e Queda de Plataforma na Fuga*: No método `update()` em `js/pow.js`, adicionada detecção de borda de plataforma e gravidade durante o estado `ESCAPING`. Ao correr para a esquerda e passar da borda do andaime (`x < 1200`), o prisioneiro agora cai suavemente por gravidade até o piso térreo da fábrica (`y = 500`) e continua correndo em fuga sem flutuar no céu.
+30. **Correção de ReferenceError em Entidade / Ordem de Scripts (BUG-053)**:
+    - **Problema / Necessidade**: Ao tentar iniciar a partida, o jogo travava sem carregar o Canvas nem inicializar os chefes/inimigos.
+    - **Módulo / Área**: Arquitetura de Classes (`js/entity.js`), `js/enemy.js`, `js/player.js`, Carregamento no DOM (`index.html`).
+    - **Status**: 🟢 **Resolvido / Validado**
+    - **Solução Implementada**:
+      - *Diagnóstico do Erro*: Foi inserida a classe base de herança `Entidade` estendida por `Enemy` e `Player`. Como `js/enemy.js` era carregado no `index.html` na linha 102 e `js/player.js` na linha 105, o navegador disparava `ReferenceError: Entidade is not defined` ao tentar compilar `class Enemy extends Entidade`.
+      - *Criação de Módulo Dedicado (`js/entity.js`)*: A classe base `Entidade` foi extraída para seu próprio arquivo modular `js/entity.js`, contendo os atributos de posição, dimensões, vida, métodos universais `getHitbox()`, `takeDamage()` e `die()`.
+      - *Inclusão Antecipada no `index.html`*: Adicionada a tag `<script src="js/entity.js"></script>` antes de `enemy.js` e `player.js`, garantindo que a hierarquia de herança e polimorfismo seja inicializada com 100% de estabilidade.
 
 ---
 

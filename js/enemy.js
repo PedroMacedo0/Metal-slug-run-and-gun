@@ -1,6 +1,5 @@
 /**
  * Enemy & Boss System - Inimigos Rebeldes & Chefes Detalhados (Visual Overhaul)
- * Sprites ricos com textura metálica, rebites, lâminas de rotor animadas, iluminação de alerta e mechs vibrantes.
  */
 
 const heliSpriteSheet = new Image();
@@ -10,25 +9,17 @@ const tankSpriteSheet = new Image();
 tankSpriteSheet.src = 'assets/boss_tank.png';
 
 const BOSS_TANK_MOVE_FRAMES = [
-    { x: 28, y: 0, w: 41, h: 35 },
-    { x: 69, y: 0, w: 41, h: 35 },
-    { x: 111, y: 0, w: 41, h: 35 },
-    { x: 152, y: 0, w: 41, h: 35 },
-    { x: 193, y: 0, w: 41, h: 35 },
-    { x: 234, y: 0, w: 40, h: 35 },
-    { x: 275, y: 0, w: 41, h: 35 },
-    { x: 316, y: 0, w: 41, h: 35 }
+    { x: 28, y: 0, w: 41, h: 35 }, { x: 69, y: 0, w: 41, h: 35 },
+    { x: 111, y: 0, w: 41, h: 35 }, { x: 152, y: 0, w: 41, h: 35 },
+    { x: 193, y: 0, w: 41, h: 35 }, { x: 234, y: 0, w: 40, h: 35 },
+    { x: 275, y: 0, w: 41, h: 35 }, { x: 316, y: 0, w: 41, h: 35 }
 ];
 
 const BOSS_TANK_FIRE_FRAMES = [
-    { x: 28, y: 105, w: 41, h: 35 },
-    { x: 69, y: 105, w: 41, h: 35 },
-    { x: 111, y: 105, w: 41, h: 35 },
-    { x: 152, y: 105, w: 41, h: 35 },
-    { x: 193, y: 105, w: 41, h: 35 },
-    { x: 234, y: 105, w: 40, h: 35 },
-    { x: 275, y: 105, w: 41, h: 35 },
-    { x: 316, y: 105, w: 41, h: 35 }
+    { x: 28, y: 105, w: 41, h: 35 }, { x: 69, y: 105, w: 41, h: 35 },
+    { x: 111, y: 105, w: 41, h: 35 }, { x: 152, y: 105, w: 41, h: 35 },
+    { x: 193, y: 105, w: 41, h: 35 }, { x: 234, y: 105, w: 40, h: 35 },
+    { x: 275, y: 105, w: 41, h: 35 }, { x: 316, y: 105, w: 41, h: 35 }
 ];
 
 const BOSS_TANK_DEAD_FRAME = { x: 28, y: 350, w: 41, h: 38 };
@@ -40,72 +31,27 @@ const sniperSpriteSheet = new Image();
 sniperSpriteSheet.src = 'assets/enemy_sniper.png';
 
 const SNIPER_SPRITES = {
-    IDLE: [
-        { x: 12, y: 8, w: 40, h: 38 },
-        { x: 55, y: 8, w: 40, h: 38 },
-        { x: 98, y: 9, w: 39, h: 37 },
-        { x: 140, y: 8, w: 40, h: 38 }
-    ],
-    RUN: [
-        { x: 12, y: 49, w: 34, h: 37 },
-        { x: 49, y: 49, w: 37, h: 37 },
-        { x: 89, y: 50, w: 42, h: 31 },
-        { x: 134, y: 51, w: 42, h: 33 },
-        { x: 179, y: 50, w: 37, h: 35 },
-        { x: 219, y: 49, w: 35, h: 37 },
-        { x: 257, y: 49, w: 34, h: 37 },
-        { x: 294, y: 49, w: 38, h: 36 },
-        { x: 335, y: 50, w: 40, h: 30 },
-        { x: 378, y: 51, w: 38, h: 32 },
-        { x: 419, y: 50, w: 37, h: 35 },
-        { x: 459, y: 49, w: 35, h: 37 }
-    ],
-    AIM: [
-        { x: 12, y: 180, w: 47, h: 34 },
-        { x: 62, y: 186, w: 47, h: 28 },
-        { x: 112, y: 188, w: 48, h: 26 },
-        { x: 163, y: 188, w: 43, h: 26 }
-    ],
-    SHOOT: [
-        { x: 12, y: 446, w: 39, h: 38 },
-        { x: 54, y: 446, w: 38, h: 38 },
-        { x: 95, y: 447, w: 43, h: 37 },
-        { x: 141, y: 449, w: 46, h: 35 },
-        { x: 190, y: 449, w: 46, h: 35 }
-    ],
+    IDLE: [{ x: 12, y: 8, w: 40, h: 38 }, { x: 55, y: 8, w: 40, h: 38 }, { x: 98, y: 9, w: 39, h: 37 }, { x: 140, y: 8, w: 40, h: 38 }],
+    RUN: [{ x: 12, y: 49, w: 34, h: 37 }, { x: 49, y: 49, w: 37, h: 37 }, { x: 89, y: 50, w: 42, h: 31 }, { x: 134, y: 51, w: 42, h: 33 }, { x: 179, y: 50, w: 37, h: 35 }, { x: 219, y: 49, w: 35, h: 37 }, { x: 257, y: 49, w: 34, h: 37 }, { x: 294, y: 49, w: 38, h: 36 }, { x: 335, y: 50, w: 40, h: 30 }, { x: 378, y: 51, w: 38, h: 32 }, { x: 419, y: 50, w: 37, h: 35 }, { x: 459, y: 49, w: 35, h: 37 }],
+    AIM: [{ x: 12, y: 180, w: 47, h: 34 }, { x: 62, y: 186, w: 47, h: 28 }, { x: 112, y: 188, w: 48, h: 26 }, { x: 163, y: 188, w: 43, h: 26 }],
+    SHOOT: [{ x: 12, y: 446, w: 39, h: 38 }, { x: 54, y: 446, w: 38, h: 38 }, { x: 95, y: 447, w: 43, h: 37 }, { x: 141, y: 449, w: 46, h: 35 }, { x: 190, y: 449, w: 46, h: 35 }],
     DEAD: { x: 261, y: 850, w: 39, h: 11 }
 };
 
 const SOLDIER_SPRITES = {
     IDLE: { x: 38, y: 6, w: 23, h: 26 },
-    RUN: [
-        { x: 5, y: 37, w: 25, h: 27 },
-        { x: 39, y: 37, w: 24, h: 27 },
-        { x: 72, y: 37, w: 24, h: 27 },
-        { x: 102, y: 37, w: 26, h: 27 },
-        { x: 136, y: 37, w: 23, h: 27 },
-        { x: 169, y: 37, w: 23, h: 27 }
-    ],
+    RUN: [{ x: 5, y: 37, w: 25, h: 27 }, { x: 39, y: 37, w: 24, h: 27 }, { x: 72, y: 37, w: 24, h: 27 }, { x: 102, y: 37, w: 26, h: 27 }, { x: 136, y: 37, w: 23, h: 27 }, { x: 169, y: 37, w: 23, h: 27 }],
     SHOOT: { x: 38, y: 70, w: 26, h: 26 },
     DEAD: { x: 0, y: 246, w: 32, h: 10 }
 };
 
 const R_SHOBU_FLYING_FRAMES = [
-    { x: 7,   y: 18, w: 89, h: 58 },
-    { x: 101, y: 18, w: 89, h: 58 },
-    { x: 194, y: 18, w: 89, h: 58 },
-    { x: 288, y: 18, w: 89, h: 58 },
-    { x: 382, y: 18, w: 89, h: 58 },
-    { x: 477, y: 18, w: 89, h: 58 },
-    { x: 568, y: 18, w: 89, h: 58 }
+    { x: 7, y: 18, w: 89, h: 58 }, { x: 101, y: 18, w: 89, h: 58 }, { x: 194, y: 18, w: 89, h: 58 },
+    { x: 288, y: 18, w: 89, h: 58 }, { x: 382, y: 18, w: 89, h: 58 }, { x: 477, y: 18, w: 89, h: 58 }, { x: 568, y: 18, w: 89, h: 58 }
 ];
 
 const R_SHOBU_ROTOR_FRAMES = [
-    { x: 10, y: 229, w: 86, h: 17 },
-    { x: 11, y: 257, w: 80, h: 12 },
-    { x: 10, y: 287, w: 80, h: 11 },
-    { x: 7,  y: 312, w: 89, h: 7 },
-    { x: 10, y: 336, w: 86, h: 11 }
+    { x: 10, y: 229, w: 86, h: 17 }, { x: 11, y: 257, w: 80, h: 12 }, { x: 10, y: 287, w: 80, h: 11 }, { x: 7, y: 312, w: 89, h: 7 }, { x: 10, y: 336, w: 86, h: 11 }
 ];
 const HELI_FRAMES = R_SHOBU_FLYING_FRAMES;
 
@@ -113,22 +59,14 @@ const bossMechSpriteSheet = new Image();
 bossMechSpriteSheet.src = 'assets/boss_mech.png';
 
 const BOSS_MECH_FRAMES = [
-    { x: 0, y: 0, w: 195, h: 189 },
-    { x: 195, y: 0, w: 195, h: 189 },
-    { x: 390, y: 0, w: 195, h: 189 }
+    { x: 0, y: 0, w: 195, h: 189 }, { x: 195, y: 0, w: 195, h: 189 }, { x: 390, y: 0, w: 195, h: 189 }
 ];
 
 const turretSpriteSheet = new Image();
 turretSpriteSheet.src = 'assets/ceiling_turret.png';
 
 const TURRET_SPRITES = {
-    SCAN: [
-        { x: 0, y: 16, w: 65, h: 60 },
-        { x: 65, y: 16, w: 65, h: 60 },
-        { x: 130, y: 16, w: 65, h: 60 },
-        { x: 195, y: 16, w: 65, h: 60 },
-        { x: 260, y: 16, w: 65, h: 60 }
-    ],
+    SCAN: [{ x: 0, y: 16, w: 65, h: 60 }, { x: 65, y: 16, w: 65, h: 60 }, { x: 130, y: 16, w: 65, h: 60 }, { x: 195, y: 16, w: 65, h: 60 }, { x: 260, y: 16, w: 65, h: 60 }],
     FIRE: { x: 0, y: 92, w: 65, h: 60 },
     DEAD: { x: 65, y: 168, w: 65, h: 60 }
 };
@@ -137,48 +75,18 @@ const bazookaSpriteSheet = new Image();
 bazookaSpriteSheet.src = 'assets/enemy_bazooka.png';
 
 const BAZOOKA_SPRITES = {
-    IDLE: [
-        { x: 3, y: 2, w: 27, h: 34 },
-        { x: 32, y: 2, w: 28, h: 34 },
-        { x: 62, y: 2, w: 29, h: 34 },
-        { x: 92, y: 2, w: 28, h: 34 },
-        { x: 121, y: 2, w: 29, h: 34 },
-        { x: 153, y: 2, w: 28, h: 34 }
-    ],
-    RUN: [
-        { x: 2, y: 38, w: 31, h: 32 },
-        { x: 35, y: 38, w: 31, h: 32 },
-        { x: 68, y: 38, w: 30, h: 32 },
-        { x: 100, y: 38, w: 31, h: 32 },
-        { x: 133, y: 38, w: 30, h: 32 },
-        { x: 165, y: 38, w: 31, h: 32 },
-        { x: 198, y: 38, w: 31, h: 32 },
-        { x: 230, y: 38, w: 29, h: 32 },
-        { x: 261, y: 38, w: 28, h: 32 },
-        { x: 291, y: 38, w: 27, h: 32 },
-        { x: 320, y: 38, w: 28, h: 32 }
-    ],
-    SHOOT: [
-        { x: 2, y: 215, w: 32, h: 43 },
-        { x: 37, y: 215, w: 30, h: 43 },
-        { x: 68, y: 215, w: 30, h: 43 },
-        { x: 102, y: 215, w: 25, h: 43 },
-        { x: 131, y: 215, w: 25, h: 43 },
-        { x: 157, y: 215, w: 25, h: 43 },
-        { x: 185, y: 215, w: 25, h: 43 },
-        { x: 210, y: 215, w: 26, h: 43 },
-        { x: 238, y: 215, w: 26, h: 43 },
-        { x: 267, y: 215, w: 26, h: 43 },
-        { x: 297, y: 215, w: 24, h: 43 }
-    ],
+    IDLE: [{ x: 3, y: 2, w: 27, h: 34 }, { x: 32, y: 2, w: 28, h: 34 }, { x: 62, y: 2, w: 29, h: 34 }, { x: 92, y: 2, w: 28, h: 34 }, { x: 121, y: 2, w: 29, h: 34 }, { x: 153, y: 2, w: 28, h: 34 }],
+    RUN: [{ x: 2, y: 38, w: 31, h: 32 }, { x: 35, y: 38, w: 31, h: 32 }, { x: 68, y: 38, w: 30, h: 32 }, { x: 100, y: 38, w: 31, h: 32 }, { x: 133, y: 38, w: 30, h: 32 }, { x: 165, y: 38, w: 31, h: 32 }, { x: 198, y: 38, w: 31, h: 32 }, { x: 230, y: 38, w: 29, h: 32 }, { x: 261, y: 38, w: 28, h: 32 }, { x: 291, y: 38, w: 27, h: 32 }, { x: 320, y: 38, w: 28, h: 32 }],
+    SHOOT: [{ x: 2, y: 215, w: 32, h: 43 }, { x: 37, y: 215, w: 30, h: 43 }, { x: 68, y: 215, w: 30, h: 43 }, { x: 102, y: 215, w: 25, h: 43 }, { x: 131, y: 215, w: 25, h: 43 }, { x: 157, y: 215, w: 25, h: 43 }, { x: 185, y: 215, w: 25, h: 43 }, { x: 210, y: 215, w: 26, h: 43 }, { x: 238, y: 215, w: 26, h: 43 }, { x: 267, y: 215, w: 26, h: 43 }, { x: 297, y: 215, w: 24, h: 43 }],
     DEAD: { x: 48, y: 405, w: 45, h: 17 }
 };
 
-class Enemy {
+class Enemy extends Entidade {
     constructor(x, y, type = 'INFANTRY') {
-        this.x = x;
-        this.y = y;
+        // Herança: Inicializa com valores genéricos, que ajustamos no switch
+        super(x, y, 36, 60, 3);
         this.type = type;
+        this.facingDirection = 'LEFT';
 
         switch (type) {
             case 'BOSS_FINAL_MECH':
@@ -195,24 +103,17 @@ class Enemy {
                 this.width = 36; this.height = 55; this.hp = 4; break;
             case 'SHIELD_INFANTRY':
                 this.width = 44; this.height = 60; this.hp = 8; break;
-            default: // INFANTRY
+            default:
                 this.width = 36; this.height = 60; this.hp = 3; break;
         }
-
         this.maxHp = this.hp;
-        this.vx = 0;
-        this.vy = 0;
-        this.isGrounded = false;
 
         this.shootTimer = 0;
         this.shootInterval = (type === 'BOSS_FINAL_MECH') ? 0.8 :
-                             (type === 'BOSS_GUNSHIP' ? 1.0 :
-                             (type === 'BOSS_TANK' ? 1.5 :
-                             (type === 'CEILING_TURRET' ? 1.8 : 2.0)));
+            (type === 'BOSS_GUNSHIP' ? 1.0 :
+                (type === 'BOSS_TANK' ? 1.5 :
+                    (type === 'CEILING_TURRET' ? 1.8 : 2.0)));
         this.hitFlashTimer = 0;
-        this.facingDirection = 'LEFT';
-        this.isDead = false;
-
         this.hoverAngle = 0;
         this.hasShield = (type === 'SHIELD_INFANTRY');
         this.shieldHp = 6;
@@ -221,26 +122,21 @@ class Enemy {
         this.animTimer = 0;
         this.animFrame = Math.floor(Math.random() * 6);
         this.shootAnimTimer = 0;
-
         this.mechPhase = 1;
         this.laserActive = false;
         this.laserTimer = 0;
         this.rotorAngle = 0;
         this.treadFrame = 0;
-
         this.tankFireTimer = 0;
         this.tankTreadFrame = 0;
         this.tankFireFrame = 0;
     }
 
-    getHitbox() {
-        return { x: this.x, y: this.y, width: this.width, height: this.height };
-    }
-
+    // Polimorfismo: Inimigos lidam com dano em área, quebra de escudos de aço e fases de chefes
     takeDamage(amount, bulletDirection = 'RIGHT', isSplash = false) {
         if (this.hasShield && !isSplash) {
             const isBulletFromFront = (this.facingDirection === 'LEFT' && bulletDirection === 'RIGHT') ||
-                                      (this.facingDirection === 'RIGHT' && bulletDirection === 'LEFT');
+                (this.facingDirection === 'RIGHT' && bulletDirection === 'LEFT');
             if (isBulletFromFront) {
                 this.shieldHp -= amount;
                 const shieldX = this.x + (this.facingDirection === 'LEFT' ? 0 : this.width);
@@ -250,7 +146,7 @@ class Enemy {
                     this.hasShield = false;
                     vfx.addExplosion(this.x + 22, this.y + 30, 16);
                     vfx.addFloatingText('SHIELD BROKEN!', this.x - 10, this.y - 15, '#ff0055');
-                    sound.playExplosion();
+                    if (typeof sound !== 'undefined' && sound.playExplosion) sound.playExplosion();
                 } else {
                     vfx.addFloatingText('SHIELD HIT!', this.x, this.y - 15, '#ffb703');
                 }
@@ -258,7 +154,7 @@ class Enemy {
             }
         }
 
-        this.hp -= amount;
+        super.takeDamage(amount, bulletDirection, isSplash);
 
         if (this.type === 'BOSS_FINAL_MECH') {
             const hpRatio = this.hp / this.maxHp;
@@ -266,27 +162,30 @@ class Enemy {
             else if (hpRatio <= 0.70) this.mechPhase = 2;
         }
 
-        if (this.hp <= 0 && !this.isDead) {
-            this.isDead = true;
-            this.hitFlashTimer = 0;
-            if (this.type === 'BOSS_FINAL_MECH') {
-                vfx.addExplosion(this.x + 100, this.y + 70, 160);
-                vfx.addFloatingText('VICTORY! ALL MISSIONS CLEAR!', this.x - 50, this.y - 40, '#00ff66');
-                if (typeof sound !== 'undefined' && sound.playMissionComplete) sound.playMissionComplete();
-            } else if (this.type === 'BOSS_GUNSHIP') {
-                vfx.addExplosion(this.x + 80, this.y + 40, 95);
-                vfx.addFloatingText('STAGE 2 CLEAR!', this.x + 20, this.y - 30, '#00ff66');
-                if (typeof sound !== 'undefined' && sound.playMissionComplete) sound.playMissionComplete();
-            } else if (this.type === 'BOSS_TANK') {
-                vfx.addExplosion(this.x + 70, this.y + 45, 65);
-                vfx.addFloatingText('STAGE 1 CLEAR!', this.x + 20, this.y - 30, '#00ff66');
-                if (typeof sound !== 'undefined' && sound.playMissionComplete) sound.playMissionComplete();
-            } else {
-                vfx.addExplosion(this.x + 18, this.y + 30, 12);
-                vfx.addFloatingText('+100 PTS', this.x, this.y - 10, '#ffb703');
-            }
-        } else if (!this.isDead) {
-            this.hitFlashTimer = 0.08;
+        if (!this.isDead) this.hitFlashTimer = 0.08;
+    }
+
+    // Polimorfismo: Chefes geram explosões massivas e letreiros de fim de fase
+    die() {
+        if (this.isDead) return;
+        super.die();
+        this.hitFlashTimer = 0;
+
+        if (this.type === 'BOSS_FINAL_MECH') {
+            vfx.addExplosion(this.x + 100, this.y + 70, 160);
+            vfx.addFloatingText('VICTORY! ALL MISSIONS CLEAR!', this.x - 50, this.y - 40, '#00ff66');
+            if (typeof sound !== 'undefined' && sound.playMissionComplete) sound.playMissionComplete();
+        } else if (this.type === 'BOSS_GUNSHIP') {
+            vfx.addExplosion(this.x + 80, this.y + 40, 95);
+            vfx.addFloatingText('STAGE 2 CLEAR!', this.x + 20, this.y - 30, '#00ff66');
+            if (typeof sound !== 'undefined' && sound.playMissionComplete) sound.playMissionComplete();
+        } else if (this.type === 'BOSS_TANK') {
+            vfx.addExplosion(this.x + 70, this.y + 45, 65);
+            vfx.addFloatingText('STAGE 1 CLEAR!', this.x + 20, this.y - 30, '#00ff66');
+            if (typeof sound !== 'undefined' && sound.playMissionComplete) sound.playMissionComplete();
+        } else {
+            vfx.addExplosion(this.x + 18, this.y + 30, 12);
+            vfx.addFloatingText('+100 PTS', this.x, this.y - 10, '#ffb703');
         }
     }
 
@@ -318,7 +217,6 @@ class Enemy {
             this.shootAnimTimer -= dt;
         }
 
-        // 1. Movimentação e Comportamento por Tipo
         if (this.type === 'BOSS_FINAL_MECH') {
             const targetX = playerX + 300;
             if (this.x > targetX + 40) this.x -= 40 * dt;
@@ -363,7 +261,6 @@ class Enemy {
                 const fireProgress = Math.min(BOSS_TANK_FIRE_FRAMES.length - 1, Math.floor(((totalFireTime - this.tankFireTimer) / totalFireTime) * BOSS_TANK_FIRE_FRAMES.length));
                 this.tankFireFrame = fireProgress;
             }
-            // Fumaça de escapamento do Tanque
             if (Math.random() < 0.25) {
                 vfx.particles.push({
                     x: this.x + (isRight ? 10 : 130),
@@ -395,7 +292,6 @@ class Enemy {
             }
         }
 
-        // 2. Disparos
         this.shootTimer += dt;
         if (this.shootTimer >= this.shootInterval) {
             this.shootTimer = 0;
@@ -423,7 +319,7 @@ class Enemy {
             bullets.push(new Bullet(cannonTipX, cannonTipY, (cdx / cdist) * 520, (cdy / cdist) * 520, 'BAZOOKA', true));
             vfx.addMuzzleFlash(cannonTipX, cannonTipY, Math.atan2(cdy, cdx));
             vfx.addScreenShake(6);
-            sound.playBazooka();
+            if (typeof sound !== 'undefined' && sound.playBazooka) sound.playBazooka();
             return;
         }
 
@@ -432,11 +328,11 @@ class Enemy {
             const podY = originY + 20;
             if (Math.random() < 0.35) {
                 bullets.push(new Bullet(podX, podY, (dx / dist) * 420, (dy / dist) * 420, 'BAZOOKA', true));
-                sound.playBazooka();
+                if (typeof sound !== 'undefined' && sound.playBazooka) sound.playBazooka();
                 vfx.addScreenShake(5);
             } else {
                 bullets.push(new Bullet(podX, podY, (dx / dist) * 480, (dy / dist) * 480, 'ENEMY_PISTOL', true));
-                sound.playHMG();
+                if (typeof sound !== 'undefined' && sound.playHMG) sound.playHMG();
             }
             vfx.addMuzzleFlash(podX, podY, Math.atan2(dy, dx));
             return;
@@ -459,9 +355,9 @@ class Enemy {
         let speed = 350;
         let bulletType = 'ENEMY_PISTOL';
 
-        if (this.type === 'ELITE_BAZOOKA') { speed = 500; bulletType = 'BAZOOKA'; sound.playBazooka(); vfx.addScreenShake(4); this.shootAnimTimer = 0.28; }
-        else if (this.type === 'SNIPER') { speed = 750; bulletType = 'SNIPER_ROUND'; sound.playPistol(); this.shootAnimTimer = 0.16; }
-        else { sound.playPistol(); this.shootAnimTimer = 0.16; }
+        if (this.type === 'ELITE_BAZOOKA') { speed = 500; bulletType = 'BAZOOKA'; if (typeof sound !== 'undefined' && sound.playBazooka) sound.playBazooka(); vfx.addScreenShake(4); this.shootAnimTimer = 0.28; }
+        else if (this.type === 'SNIPER') { speed = 750; bulletType = 'SNIPER_ROUND'; if (typeof sound !== 'undefined' && sound.playPistol) sound.playPistol(); this.shootAnimTimer = 0.16; }
+        else { if (typeof sound !== 'undefined' && sound.playPistol) sound.playPistol(); this.shootAnimTimer = 0.16; }
 
         const vx = (dx / dist) * speed;
         const vy = (dy / dist) * speed;
@@ -473,7 +369,6 @@ class Enemy {
     draw(ctx, cameraX) {
         if (this.isDead && (this.deathTimer || 0) > 2.5) return;
         if (this.isDead && (this.type === 'BOSS_GUNSHIP' || this.type === 'BOSS_FINAL_MECH')) {
-            // Chefes aéreos/robôs explodem com grandes labaredas de partículas e desaparecem
             return;
         }
 
@@ -512,7 +407,6 @@ class Enemy {
 
     drawBossTank(ctx, renderX) {
         const isRight = this.facingDirection === 'RIGHT';
-
         ctx.save();
         ctx.imageSmoothingEnabled = false;
 
@@ -529,14 +423,12 @@ class Enemy {
             const drawW = frame.w * scale;
             const drawH = frame.h * scale;
 
-            // Alinha a base do sprite ao solo
             const drawX = renderX + (this.width - drawW) / 2;
             const drawY = this.y + (this.height - drawH);
 
             const centerX = drawX + drawW / 2;
             const centerY = drawY + drawH / 2;
 
-            // Sombra elíptica no solo sob o tanque
             ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
             ctx.beginPath();
             ctx.ellipse(centerX, this.y + this.height - 4, drawW * 0.46, 9, 0, 0, Math.PI * 2);
@@ -544,7 +436,6 @@ class Enemy {
 
             ctx.translate(centerX, centerY);
 
-            // Sprite original aponta nativamente para a ESQUERDA (em direção ao jogador)
             if (isRight) {
                 ctx.scale(-1, 1);
             }
@@ -557,16 +448,13 @@ class Enemy {
 
             ctx.restore();
         } else {
-            // Fallback se a imagem ainda estiver carregando
             ctx.fillStyle = '#2d6a4f';
             ctx.fillRect(renderX, this.y, this.width, this.height);
             ctx.restore();
         }
 
-        // Se estiver morto, não desenha barra de vida
         if (this.isDead) return;
 
-        // Barra de Vida e Título do Chefe Tanque Rebelde
         const hpPercent = Math.max(0, this.hp / this.maxHp);
         ctx.fillStyle = 'rgba(0, 0, 0, 0.85)';
         ctx.fillRect(renderX - 10, this.y - 28, 155, 12);
@@ -580,27 +468,22 @@ class Enemy {
     drawShieldInfantry(ctx, renderX) {
         const isRight = this.facingDirection === 'RIGHT';
 
-        // Soldado Base atrás do Escudo
         this.drawInfantryBody(ctx, renderX);
 
         if (this.hasShield) {
-            // Escudo de Aço Reforçado com Tarja de Perigo
             ctx.fillStyle = '#343a40';
             const shieldX = isRight ? renderX + 22 : renderX - 4;
             ctx.fillRect(shieldX, this.y + 10, 24, 48);
             ctx.strokeStyle = '#6c757d'; ctx.lineWidth = 3;
             ctx.strokeRect(shieldX, this.y + 10, 24, 48);
 
-            // Visor do Escudo
             ctx.fillStyle = '#00f0ff';
             ctx.fillRect(shieldX + 4, this.y + 18, 16, 5);
 
-            // Listras Amarelas de Perigo
             ctx.fillStyle = '#ffb703';
             ctx.fillRect(shieldX + 2, this.y + 35, 20, 4);
             ctx.fillRect(shieldX + 2, this.y + 45, 20, 4);
 
-            // Mini-barra de Vida do Escudo ao Receber Dano
             if (this.shieldHp < this.maxShieldHp) {
                 const shieldRatio = Math.max(0, this.shieldHp / this.maxShieldHp);
                 ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
@@ -654,7 +537,6 @@ class Enemy {
             return;
         }
 
-        // Boina Roxa Elite (Contingência)
         ctx.fillStyle = '#7209b7'; ctx.fillRect(renderX + 8, this.y, 22, 10);
         ctx.fillStyle = '#ffcc99'; ctx.fillRect(renderX + 8, this.y + 10, 20, 10);
         ctx.fillStyle = '#3a0ca3'; ctx.fillRect(renderX + 4, this.y + 20, 28, 24);
@@ -706,7 +588,6 @@ class Enemy {
 
             ctx.restore();
 
-            // Mira Laser Vermelha Perigosa enquanto mira e atira
             if (!this.isDead && (isAiming || this.shootAnimTimer > 0)) {
                 const laserOriginX = isRight ? renderX + this.width + 16 : renderX - 16;
                 const laserOriginY = this.y + (isAiming ? 32 : 24);
@@ -721,7 +602,6 @@ class Enemy {
                 ctx.lineTo(isRight ? laserOriginX + 680 : laserOriginX - 680, laserOriginY);
                 ctx.stroke();
 
-                // Ponto vermelho pulsante na ponta do cano
                 ctx.fillStyle = '#ff0055';
                 ctx.beginPath();
                 ctx.arc(laserOriginX, laserOriginY, 3, 0, Math.PI * 2);
@@ -731,7 +611,6 @@ class Enemy {
             return;
         }
 
-        // Contingência se a imagem ainda não carregou
         ctx.fillStyle = '#1b4332';
         ctx.fillRect(renderX + 4, this.y + 4, 28, 50);
         ctx.fillStyle = '#ff0055';
@@ -767,7 +646,6 @@ class Enemy {
             return;
         }
 
-        // Contingência se a imagem ainda não carregou
         ctx.fillStyle = '#1e293b'; ctx.fillRect(renderX, this.y, 48, 12);
         ctx.fillStyle = '#334155'; ctx.beginPath(); ctx.arc(renderX + 24, this.y + 18, 16, 0, Math.PI * 2); ctx.fill();
     }
@@ -793,7 +671,6 @@ class Enemy {
             const drawW = frame.w * scale;
             const drawH = frame.h * scale;
 
-            // Alinha os pés rigorosamente ao solo
             const drawX = renderX + (this.width - drawW) / 2;
             const drawY = this.y + (this.height - drawH);
 
@@ -818,7 +695,6 @@ class Enemy {
             return;
         }
 
-        // Fallback vetorial
         ctx.fillStyle = '#556b2f';
         ctx.fillRect(renderX + 6, this.y, 24, 14);
         ctx.fillStyle = '#ffcc99';
@@ -854,7 +730,6 @@ class Enemy {
                 ctx.scale(-1, 1);
             }
 
-            // Alerta vermelho piscante na fase 3
             if (this.mechPhase === 3 && Math.floor(Date.now() / 120) % 2 === 0) {
                 ctx.shadowColor = '#ff0055';
                 ctx.shadowBlur = 18;
@@ -866,7 +741,6 @@ class Enemy {
                 -drawW / 2, -drawH / 2, drawW, drawH
             );
 
-            // Efeito de feixe de laser central na Fase 2
             if (this.mechPhase === 2 && this.laserActive) {
                 const laserStartX = -40;
                 const laserStartY = -10;
@@ -889,12 +763,10 @@ class Enemy {
 
             ctx.restore();
         } else {
-            // Contingência
             ctx.fillStyle = '#1e293b'; ctx.fillRect(renderX + 20, this.y, 160, 110);
             ctx.restore();
         }
 
-        // Barra de Vida do Chefe Mech Final
         const hpPercent = Math.max(0, this.hp / this.maxHp);
         ctx.fillStyle = 'rgba(0, 0, 0, 0.85)';
         ctx.fillRect(renderX - 10, this.y - 32, 220, 14);
@@ -913,7 +785,6 @@ class Enemy {
         ctx.save();
         ctx.imageSmoothingEnabled = false;
 
-        // Se o sprite sheet estiver carregado, desenha o helicóptero R-Shobu com fuselagem e hélice animada
         if (heliSpriteSheet.complete && heliSpriteSheet.naturalWidth > 0) {
             const bodyFrame = R_SHOBU_FLYING_FRAMES[this.heliFlyFrame || 0] || R_SHOBU_FLYING_FRAMES[0];
             const rotorFrame = R_SHOBU_ROTOR_FRAMES[this.rotorFrame || 0] || R_SHOBU_ROTOR_FRAMES[0];
@@ -924,23 +795,19 @@ class Enemy {
 
             ctx.translate(centerX, centerY);
 
-            // Espelhamento: R-Shobu olha nativamente para a esquerda (direção de aproximação do herói)
             if (isRight) {
                 ctx.scale(-1, 1);
             }
 
-            // Inclinação dinâmica em direção ao movimento
             const targetTilt = this.vx > 10 ? -0.12 : (this.vx < -10 ? 0.12 : 0);
             ctx.rotate(targetTilt);
 
-            // 1. Desenha a fuselagem de combate do helicóptero R-Shobu
             ctx.drawImage(
                 heliSpriteSheet,
                 bodyFrame.x, bodyFrame.y, bodyFrame.w, bodyFrame.h,
                 -drawW / 2, -drawH / 2, drawW, drawH
             );
 
-            // 2. Desenha a hélice girando em alta rotação sobre o mastro do rotor
             const rotorW = rotorFrame.w * scale * 1.15;
             const rotorH = rotorFrame.h * scale;
             const rotorMastOffX = 0;
@@ -952,14 +819,12 @@ class Enemy {
                 rotorMastOffX - rotorW / 2, rotorMastOffY, rotorW, rotorH
             );
         } else {
-            // Fuselagem de contingência
             ctx.fillStyle = '#1c2321'; ctx.fillRect(renderX + 20, this.y, 120, 50);
             ctx.fillStyle = '#ff0055'; ctx.fillRect(renderX + 20, this.y + 10, 30, 25);
         }
 
         ctx.restore();
 
-        // Barra de Vida do Chefe Helicóptero R-Shobu
         const hpPercent = Math.max(0, this.hp / this.maxHp);
         ctx.fillStyle = 'rgba(0, 0, 0, 0.85)';
         ctx.fillRect(renderX - 5, this.y - 28, 140, 12);
