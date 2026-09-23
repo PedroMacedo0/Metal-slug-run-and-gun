@@ -102,7 +102,7 @@ O desenvolvimento seguiu rigorosamente os pilares da **Programação Orientada a
 ## 🤖 Uso de Inteligência Artificial
 Conforme os requisitos da avaliação, o grupo utilizou ferramentas de IA generativa no processo de desenvolvimento:
 * **Google Gemini**: Utilizado extensivamente como parceiro de programação no Antigravity, estruturando o Game Loop, aplicando texturas de *sprite sheets* complexas (como o chefe final mecânico) e organizando a documentação.
-* **[INSERIR SEGUNDA IA AQUI - Ex: ChatGPT/Claude]**: Utilizado para [Descrever brevemente o que foi gerado, ex: revisar a lógica de colisão e comparar com o código inicial]. 
+* **ChatGPT (OpenAI):** Utilizado na fase de polimento para otimizar a matemática da caixa de colisão (AABB - Axis-Aligned Bounding Box) e a física de gravidade, resolvendo pequenos bugs de deteção onde o jogador ficava preso nas plataformas. Também foi consultado para gerar os algoritmos de dispersão (*spread angle*) dos projéteis da caçadeira.
 * *Nota: Os prompts, comparações de código e resultados obtidos estão detalhados no relatório da apresentação e nos arquivos `correcao_de_bugs.md` e `melhorias_no_jogo.md`.*
 
 ---
