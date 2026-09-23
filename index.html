@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metal Slug 2D - Run and Gun (HTML5 Canvas)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-wrapper">
+        <header class="game-header">
+            <h1 class="game-title"><span class="highlight">METAL SLUG</span> 2D - ARCADE</h1>
+            <p class="game-subtitle">Ação Frenética, Rolagem Side-Scrolling, POWs, Bazuca e 3 Fases Completas</p>
+        </header>
+
+        <main class="canvas-container" id="canvasContainer">
+            <!-- Barra Superior Arcade & Botão de Tela Cheia -->
+            <div class="arcade-top-bar" id="arcadeTopBar">
+                <div class="cabinet-brand">
+                    <span class="pulse-indicator"></span>
+                    <span class="brand-text">NEO-GEO MVS // ARCADE 4:3</span>
+                </div>
+                <div class="top-bar-actions">
+                    <button id="btnSoundToggle" class="btn-arcade-sound" type="button" title="Ligar/Desligar Áudio (Tecla M)" aria-label="Alternar Áudio">
+                        <span class="sound-icon-box">🔊</span>
+                        <span class="sound-text">SOM ON</span>
+                    </button>
+                    <button id="btnFullscreen" class="btn-arcade-fullscreen" type="button" title="Alternar Tela Cheia (Tecla F)" aria-label="Alternar Tela Cheia">
+                        <span class="fs-icon-box">
+                            <svg class="icon-expand" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="15 3 21 3 21 9"></polyline>
+                                <polyline points="9 21 3 21 3 15"></polyline>
+                                <line x1="21" y1="3" x2="14" y2="10"></line>
+                                <line x1="3" y1="21" x2="10" y2="14"></line>
+                            </svg>
+                            <svg class="icon-compress" style="display: none;" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="4 14 10 14 10 20"></polyline>
+                                <polyline points="20 10 14 10 14 4"></polyline>
+                                <line x1="14" y1="10" x2="21" y2="3"></line>
+                                <line x1="10" y1="14" x2="3" y2="21"></line>
+                            </svg>
+                        </span>
+                        <span class="btn-text">TELA CHEIA</span>
+                    </button>
+                </div>
+            </div>
+
+            <canvas id="gameCanvas" width="800" height="600"></canvas>
+        </main>
+
+        <footer class="controls-panel">
+            <h3>🎮 Painel de Controles do Jogador</h3>
+            <div class="controls-grid">
+                <div class="control-card">
+                    <span class="key">A</span> <span class="key">D</span> ou <span class="key">←</span> <span class="key">→</span>
+                    <span class="label">Mover Esquerda / Direita</span>
+                </div>
+                <div class="control-card">
+                    <span class="key">K</span> ou <span class="key">Espaço</span>
+                    <span class="label">Pular (Disponível em Movimento!)</span>
+                </div>
+                <div class="control-card">
+                    <span class="key">S</span> ou <span class="key">↓</span>
+                    <span class="label">Agachar / Tiro p/ Baixo no Ar</span>
+                </div>
+                <div class="control-card">
+                    <span class="key">W</span> / <span class="key">S</span> + Direção
+                    <span class="label">Mira Multidirecional (Diagonais/Cima)</span>
+                </div>
+                <div class="control-card">
+                    <span class="key">J</span> ou <span class="key">Z</span>
+                    <span class="label">Atirar (Resgate POWs para Armas!)</span>
+                </div>
+                <div class="control-card">
+                    <span class="key">F</span>
+                    <span class="label">Alternar Tela Cheia (Fullscreen)</span>
+                </div>
+                <div class="control-card">
+                    <span class="key">M</span>
+                    <span class="label">Mutar / Desmutar Áudio (BGM/SFX)</span>
+                </div>
+                <div class="control-card">
+                    <span class="key">ESC</span> ou <span class="key">P</span>
+                    <span class="label">Pausar / Retomar Jogo</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Módulos da Engine Metal Slug 2D -->
+    <script src="js/sound.js"></script>
+    <script src="js/input.js"></script>
+    <script src="js/physics.js"></script>
+    <script src="js/particle.js"></script>
+    <script src="js/weapon.js"></script>
+    <script src="js/camera.js"></script>
+    <script src="js/pow.js"></script>
+    <script src="js/medic.js"></script>
+    <script src="js/enemy.js"></script>
+    <script src="js/stage.js"></script>
+    <script src="js/nera_data.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

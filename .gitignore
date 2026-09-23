@@ -1,0 +1,16 @@
+# Logs and temporary files
+*.log
+*.tmp
+*.bak
+
+# Operating System files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor directories
+.vscode/
+.idea/
+
+# Dependencies
+node_modules/
