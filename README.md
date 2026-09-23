@@ -25,6 +25,12 @@ O jogo coloca o jogador no papel de um soldado de elite enfrentando hordas de in
 
 ---
 
+## 🕹️ Link do jogo
+
+https://pedromacedo0.github.io/Metal-slug-run-and-gun/
+
+---
+
 ## 🕹️ Controles do Jogador
 
 | Ação | Teclas Primárias | Teclas Alternativas | Descrição |
@@ -110,4 +116,4 @@ Para manter o rigor visual profissional exigido, foram utilizados *assets* de te
 ---
 **Autores:**
 * Pedro Augusto da Silva Macedo
-* Henrique Jorge MArtins Figueiredo
+* Henrique Jorge Martins Figueiredo
