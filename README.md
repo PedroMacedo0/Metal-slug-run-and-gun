@@ -110,7 +110,4 @@ Para manter o rigor visual profissional exigido, foram utilizados *assets* de te
 ---
 **Autores:**
 * Pedro Augusto da Silva Macedo
-* [Nome do Integrante 2]
-* [Nome do Integrante 3]
-* [Nome do Integrante 4 (Opcional)]
-* [Nome do Integrante 5 (Opcional)]
+* Henrique Jorge MArtins Figueiredo
