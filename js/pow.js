@@ -273,6 +273,31 @@ class POW {
             this.escapeFrame = Math.floor(this.escapeRunTimer) % 8;
             this.x -= this.escapeSpeed * dt;
             this.isFlipped = false;
+
+            // Gravidade e queda suave ao passar da borda de plataformas elevadas
+            let groundY = 500;
+            const feetX = this.x;
+            const currentFeetY = this.y + this.height;
+
+            for (const p of platforms) {
+                if (feetX >= p.x && feetX <= p.x + p.width && currentFeetY <= p.y + 6) {
+                    if (p.y < groundY) {
+                        groundY = p.y;
+                    }
+                }
+            }
+
+            if (currentFeetY < groundY) {
+                this.escapeVy = (this.escapeVy || 0) + 750 * dt;
+                this.y += this.escapeVy * dt;
+                if (this.y + this.height >= groundY) {
+                    this.y = groundY - this.height;
+                    this.escapeVy = 0;
+                }
+            } else {
+                this.y = groundY - this.height;
+                this.escapeVy = 0;
+            }
         }
     }
 

@@ -278,7 +278,7 @@ class Game {
             this.pows = [
                 new POW(600, 315, 'HMG'),
                 new POW(1500, 275, 'SHOTGUN'),
-                new POW(2400, 315, 'BAZOOKA')
+                new POW(2400, 255, 'BAZOOKA')
             ];
             this.medics = [
                 new MedicNPC(2000, 442)
@@ -305,7 +305,7 @@ class Game {
             ];
             this.pows = [
                 new POW(350, 455, 'BAZOOKA'),
-                new POW(1300, 315, 'HMG'),
+                new POW(1300, 255, 'HMG'),
                 new POW(2500, 455, 'SHOTGUN')
             ];
             this.medics = [

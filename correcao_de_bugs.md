@@ -219,7 +219,14 @@ Este documento registra o histórico de relatórios, diagnósticos, resoluções
     - **Solução Implementada**:
       - *Diagnóstico da Orientação Nativa no Sprite Sheet*: Na folha oficial `assets/rumi_sheet.png`, as fileiras 1 a 3 (`WALK` e `FALL`) olham nativamente para a direita, mas a fileira 5 (`FLEE`, 9 quadros de fuga sem mochila) foi desenhada pela SNK olhando nativamente para a esquerda. Como o código anterior aplicava `scale(-1, 1)` para `facingDirection === 'LEFT'`, o sprite de fuga era invertido e apontava para a direita enquanto ela se deslocava para a esquerda.
       - *Ajuste da Lógica de Flip por Estado*: No método `draw()` de `js/medic.js`, implementada a condicional onde para `FLEEING`, `shouldFlip = (this.facingDirection === 'RIGHT')`. Se ela correr para a esquerda, o sprite nativo é preservado sem inversão; se correr para a direita, é invertido horizontalmente para olhar para a direita.
-      - *Fuga Reativa Baseada no Impacto*: Atualizado `main.js` para passar a posição do atacante `attackerX` para `medic.takeDamage(1, attackerX)`. A médica tropeça e foge na direção oposta ao perigo, mantendo sempre o rosto, braços e pernas voltados para a frente em que está correndo.
+29. **Correção do Segundo Prisioneiro (POW) da Fase 3 Flutuando no Ar (BUG-052)**:
+    - **Problema / Necessidade**: Na Fase 3 (Fábrica Militar), o segundo prisioneiro de guerra (`x = 1300`) aparecia flutuando no ar abaixo do andaime metálico.
+    - **Módulo / Área**: Spawns de Prisioneiros (`js/main.js`), Movimentação de Fuga e Plataformas (`js/pow.js`).
+    - **Status**: 🟢 **Resolvido / Validado**
+    - **Solução Implementada**:
+      - *Alinhamento ao Andaime Elevado*: Na Fase 3, o andaime metálico intermediário fica localizado em `x = 1200` com topo em `y = 300`. A coordenada Y do POW estava incorretamente como `y = 315` (pés em `y = 360`, pendurado no vazio). Ajustada a posição para `y = 255` em `js/main.js`, garantindo que os pés (`y + height = 255 + 45 = 300`) fiquem milimetricamente apoiados sobre a plataforma de aço.
+      - *Alinhamento Semelhante na Fase 2*: O terceiro POW da Fase 2 (`x = 2400`), posicionado na passarela de `y = 300`, também foi calibrado de `y = 315` para `y = 255`.
+      - *Gravidade e Queda de Plataforma na Fuga*: No método `update()` em `js/pow.js`, adicionada detecção de borda de plataforma e gravidade durante o estado `ESCAPING`. Ao correr para a esquerda e passar da borda do andaime (`x < 1200`), o prisioneiro agora cai suavemente por gravidade até o piso térreo da fábrica (`y = 500`) e continua correndo em fuga sem flutuar no céu.
 
 ---
 
