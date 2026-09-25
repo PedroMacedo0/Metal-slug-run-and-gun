@@ -115,5 +115,5 @@ Para manter o rigor visual profissional exigido, foram utilizados *assets* de te
 
 ---
 **Autores:**
-* Pedro Augusto da Silva Macedo
-* Henrique Jorge Martins Figueiredo
+* Pedro Augusto da Silva Macedo - RA: 21010681
+* Henrique Jorge Martins Figueiredo - RA: 24026809
