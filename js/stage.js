@@ -233,9 +233,9 @@ class StageManager {
                 ctx.fill();
             }
 
-            // Luzes de Alerta Industriais Neon
-            const alertBlink = (Math.floor(Date.now() / 250) % 2 === 0);
-            ctx.fillStyle = alertBlink ? 'rgba(0, 240, 255, 0.06)' : 'rgba(255, 0, 85, 0.06)';
+            // Luzes de Alerta Industriais de Emergência (Amarelo Âmbar / Vermelho Morden)
+            const alertBlink = (Math.floor(Date.now() / 320) % 2 === 0);
+            ctx.fillStyle = alertBlink ? 'rgba(255, 170, 0, 0.04)' : 'rgba(220, 40, 20, 0.04)';
             ctx.fillRect(0, 0, 800, 60);
         } else {
             ctx.fillStyle = '#090d16';
@@ -362,17 +362,29 @@ class StageManager {
             ctx.fillStyle = '#475569';
             ctx.fillRect(renderX + 14, 460, 4, 40);
         } else if (d.type === 'POWER_GENERATOR') {
-            // Gerador de Força com Núcleo Neon
-            ctx.fillStyle = '#1e293b';
+            // Gerador Industrial Militar Blindado Morden
+            ctx.fillStyle = '#1e2430';
             ctx.fillRect(renderX, 410, 50, 90);
-            ctx.strokeStyle = '#00f0ff';
+            ctx.strokeStyle = '#475569';
             ctx.lineWidth = 2;
             ctx.strokeRect(renderX, 410, 50, 90);
 
-            // Núcleo com LED Pulsante
-            ctx.fillStyle = (Math.floor(Date.now() / 180) % 2 === 0) ? '#00f0ff' : '#0077aa';
+            // Faixas de aviso de perigo na carcaça
+            ctx.fillStyle = '#dca216';
+            ctx.fillRect(renderX + 6, 420, 38, 5);
+            ctx.fillStyle = '#1e2430';
+            for (let fx = 0; fx < 38; fx += 8) {
+                ctx.fillRect(renderX + 6 + fx, 420, 4, 5);
+            }
+
+            // Luz piloto indicadora de alta tensão
+            ctx.fillStyle = (Math.floor(Date.now() / 250) % 2 === 0) ? '#ffaa00' : '#885500';
             ctx.beginPath();
-            ctx.arc(renderX + 25, 440, 14, 0, Math.PI * 2);
+            ctx.arc(renderX + 25, 450, 10, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.arc(renderX + 23, 448, 3, 0, Math.PI * 2);
             ctx.fill();
         }
     }

@@ -260,7 +260,7 @@ class Game {
                 new MedicNPC(1600, 442)
             ];
             this.platforms = [
-                { x: 0, y: 500, width: 3200, height: 100, color: '#383227', borderTop: '#6b5f48', type: 'RUINS_GROUND' },
+                { x: 0, y: 500, width: 3200, height: 100, color: '#2b2319', borderTop: '#8c7d63', type: 'RUINS_GROUND' },
                 { x: 500, y: 380, width: 220, height: 20, color: '#443c30', borderTop: '#7d7056', type: 'RUINS_LEDGE' },
                 { x: 1300, y: 340, width: 240, height: 20, color: '#443c30', borderTop: '#7d7056', type: 'RUINS_LEDGE' }
             ];
@@ -312,11 +312,11 @@ class Game {
                 new MedicNPC(1900, 442)
             ];
             this.platforms = [
-                { x: 0, y: 500, width: 3800, height: 100, color: '#0d1219', borderTop: '#00f0ff', type: 'FACTORY_GROUND' },
-                { x: 550, y: 360, width: 220, height: 20, color: '#141c2b', borderTop: '#ff0055', type: 'SCAFFOLD' },
-                { x: 1200, y: 300, width: 260, height: 20, color: '#141c2b', borderTop: '#ff0055', type: 'SCAFFOLD' },
-                { x: 1900, y: 360, width: 240, height: 20, color: '#141c2b', borderTop: '#ff0055', type: 'SCAFFOLD' },
-                { x: 2600, y: 280, width: 280, height: 20, color: '#141c2b', borderTop: '#ff0055', type: 'SCAFFOLD' }
+                { x: 0, y: 500, width: 3800, height: 100, color: '#161b24', borderTop: '#e5a912', type: 'FACTORY_GROUND' },
+                { x: 550, y: 360, width: 220, height: 20, color: '#212936', borderTop: '#7c8b9e', type: 'SCAFFOLD' },
+                { x: 1200, y: 300, width: 260, height: 20, color: '#212936', borderTop: '#7c8b9e', type: 'SCAFFOLD' },
+                { x: 1900, y: 360, width: 240, height: 20, color: '#212936', borderTop: '#7c8b9e', type: 'SCAFFOLD' },
+                { x: 2600, y: 280, width: 280, height: 20, color: '#212936', borderTop: '#7c8b9e', type: 'SCAFFOLD' }
             ];
         }
 
@@ -666,33 +666,134 @@ class Game {
 
             // Renderização Estilizada por Tipo de Cenário Oficial
             if (p.type === 'RUINS_GROUND') {
-                // Solo de Pedra Antiga de Angkor Wat com divisórias e musgo
-                this.ctx.fillStyle = '#28231b';
-                for (let bx = (p.x % 60); bx < p.width; bx += 60) {
-                    const rx = p.x + bx - cameraX;
-                    if (rx >= -10 && rx <= this.width + 10) {
-                        this.ctx.fillRect(rx, p.y + 4, 2, p.height - 4);
-                    }
-                }
-                this.ctx.fillStyle = '#201c15';
-                this.ctx.fillRect(renderX, p.y + 45, p.width, 2);
+                // =============================================================
+                // --- FASE 1: SOLO DE PEDRA ANGKOR WAT & SELVA (METAL SLUG) ---
+                // =============================================================
+                // 1. Fundação e gradiente terroso de rocha antiga do templo
+                const baseGrad = this.ctx.createLinearGradient(0, p.y, 0, p.y + p.height);
+                baseGrad.addColorStop(0, '#3a3225');
+                baseGrad.addColorStop(0.15, '#2b241b');
+                baseGrad.addColorStop(0.65, '#1e1913');
+                baseGrad.addColorStop(1, '#110e0a');
+                this.ctx.fillStyle = baseGrad;
+                this.ctx.fillRect(renderX, p.y, p.width, p.height);
 
-                // Borda de pedra talhada com musgo verde suave
-                this.ctx.fillStyle = p.borderTop || '#6b5f48';
-                this.ctx.fillRect(renderX, p.y, p.width, 5);
-                this.ctx.fillStyle = '#4a5d3c';
-                for (let mx = 0; mx < p.width; mx += 140) {
-                    const rmx = p.x + mx - cameraX;
-                    if (rmx >= -50 && rmx <= this.width + 50) {
-                        this.ctx.fillRect(rmx + 10, p.y, 25, 4);
+                // 2. Grandes Blocos de Pedra Talhada do Templo (Ashlar Masonry)
+                const blockSizes = [88, 112, 76, 96, 120, 80];
+                let curBlockX = Math.floor(p.x / 400) * 400;
+                let bIdx = 0;
+                while (curBlockX < p.x + p.width) {
+                    const bw = blockSizes[bIdx % blockSizes.length];
+                    const rbx = curBlockX - cameraX;
+                    if (rbx + bw >= -20 && rbx <= this.width + 20) {
+                        // Linha vertical de rejunte profundo entre blocos
+                        this.ctx.fillStyle = '#14100c';
+                        this.ctx.fillRect(rbx, p.y + 6, 3, p.height - 6);
+
+                        // Destaque de chanfro de pedra desgastada
+                        this.ctx.fillStyle = 'rgba(168, 150, 120, 0.12)';
+                        this.ctx.fillRect(rbx + 3, p.y + 6, 2, p.height - 6);
+
+                        // Rachaduras orgânicas de pedra antiga esculpida
+                        if (bIdx % 2 === 0) {
+                            this.ctx.fillStyle = '#16120d';
+                            this.ctx.fillRect(rbx + 24, p.y + 20, 18, 2);
+                            this.ctx.fillRect(rbx + 40, p.y + 22, 2, 14);
+                            this.ctx.fillRect(rbx + 42, p.y + 34, 12, 2);
+                        } else if (bIdx % 3 === 0) {
+                            this.ctx.fillStyle = '#16120d';
+                            this.ctx.fillRect(rbx + 30, p.y + 55, 25, 2);
+                            this.ctx.fillRect(rbx + 52, p.y + 57, 2, 18);
+                        }
+                    }
+                    curBlockX += bw;
+                    bIdx++;
+                }
+
+                // Linha de divisão horizontal entre fileiras de pedras
+                this.ctx.fillStyle = '#120f0c';
+                this.ctx.fillRect(renderX, p.y + 44, p.width, 3);
+                this.ctx.fillStyle = 'rgba(145, 128, 102, 0.15)';
+                this.ctx.fillRect(renderX, p.y + 47, p.width, 1.5);
+
+                // 3. Moldura Superior de Pedra Esculpida (Beiral Sandstone)
+                const borderGrad = this.ctx.createLinearGradient(0, p.y, 0, p.y + 8);
+                borderGrad.addColorStop(0, '#9c8c70');
+                borderGrad.addColorStop(0.4, '#7a6c54');
+                borderGrad.addColorStop(1, '#4a4030');
+                this.ctx.fillStyle = borderGrad;
+                this.ctx.fillRect(renderX, p.y, p.width, 8);
+
+                // Linha de brilho superior da pedra
+                this.ctx.fillStyle = '#b5a589';
+                this.ctx.fillRect(renderX, p.y, p.width, 1.5);
+                // Sombra de recesso logo abaixo do beiral
+                this.ctx.fillStyle = '#1f1a14';
+                this.ctx.fillRect(renderX, p.y + 8, p.width, 2);
+
+                // 4. Vegetação Tropical, Musgo e Raízes Rastejantes caindo no beiral
+                const mossStep = 64;
+                const startM = Math.floor(p.x / mossStep) * mossStep;
+                for (let mx = startM; mx < p.x + p.width; mx += mossStep) {
+                    const rmx = mx - cameraX;
+                    if (rmx >= -60 && rmx <= this.width + 60) {
+                        const seed = Math.abs(Math.sin(mx * 12.9898) * 43758.5453);
+                        const mLen = 4 + Math.floor((seed % 1) * 11);
+                        const mWidth = 12 + Math.floor(((seed * 2) % 1) * 20);
+
+                        // Mancha de musgo base verde oliva
+                        this.ctx.fillStyle = '#2d4022';
+                        this.ctx.fillRect(rmx, p.y, mWidth, mLen);
+
+                        // Franjas de vegetação viva verde folha
+                        this.ctx.fillStyle = '#4e6d38';
+                        this.ctx.fillRect(rmx + 2, p.y, mWidth - 4, Math.max(3, mLen - 3));
+
+                        // Destaque de folhas/musgo claro
+                        this.ctx.fillStyle = '#7a9f54';
+                        this.ctx.fillRect(rmx + 4, p.y, Math.max(4, mWidth - 8), 2.5);
+
+                        // Raiz/trepadeira fina pendurada sobre a pedra
+                        if (seed % 1 > 0.45) {
+                            this.ctx.fillStyle = '#3a2e1d';
+                            this.ctx.fillRect(rmx + Math.floor(mWidth / 2), p.y + mLen, 2, 7);
+                            this.ctx.fillStyle = '#557538';
+                            this.ctx.fillRect(rmx + Math.floor(mWidth / 2) - 1, p.y + mLen + 5, 4, 3);
+                        }
                     }
                 }
             } else if (p.type === 'RUINS_LEDGE') {
-                // Plataformas elevadas de pedra antiga
-                this.ctx.fillStyle = p.borderTop || '#7d7056';
-                this.ctx.fillRect(renderX, p.y, p.width, 4);
-                this.ctx.fillStyle = '#4a5d3c';
-                this.ctx.fillRect(renderX + 8, p.y, 30, 3);
+                // Plataformas elevadas de lajes de pedra antiga suspensas
+                const ledgeGrad = this.ctx.createLinearGradient(0, p.y, 0, p.y + p.height);
+                ledgeGrad.addColorStop(0, '#5a4e3c');
+                ledgeGrad.addColorStop(0.5, '#3b3326');
+                ledgeGrad.addColorStop(1, '#201b14');
+                this.ctx.fillStyle = ledgeGrad;
+                this.ctx.fillRect(renderX, p.y, p.width, p.height);
+
+                // Moldura de pedra esculpida com luz e sombra
+                this.ctx.fillStyle = '#948469';
+                this.ctx.fillRect(renderX, p.y, p.width, 2.5);
+                this.ctx.fillStyle = '#1c1711';
+                this.ctx.fillRect(renderX, p.y + p.height - 2, p.width, 2);
+
+                // Suportes / Mísulas de pedra sob a plataforma
+                this.ctx.fillStyle = '#262017';
+                this.ctx.fillRect(renderX + 8, p.y + p.height, 14, 8);
+                this.ctx.fillRect(renderX + p.width - 22, p.y + p.height, 14, 8);
+
+                // Musgo e hera pendurada nas bordas
+                this.ctx.fillStyle = '#456133';
+                this.ctx.fillRect(renderX + 12, p.y, 28, 4);
+                this.ctx.fillRect(renderX + 16, p.y + 4, 6, 7);
+                this.ctx.fillStyle = '#6f944d';
+                this.ctx.fillRect(renderX + 14, p.y, 18, 2);
+
+                this.ctx.fillStyle = '#456133';
+                this.ctx.fillRect(renderX + p.width - 45, p.y, 32, 4);
+                this.ctx.fillRect(renderX + p.width - 32, p.y + 4, 8, 8);
+                this.ctx.fillStyle = '#6f944d';
+                this.ctx.fillRect(renderX + p.width - 42, p.y, 22, 2);
             } else if (p.type === 'SUBWAY_TRACKS') {
                 // Trilhos e dormentes do metrô subterrâneo
                 this.ctx.fillStyle = '#0e0b09';
@@ -729,25 +830,169 @@ class Game {
                     }
                 }
             } else if (p.type === 'FACTORY_GROUND') {
-                // Piso de placas de aço industrial da fábrica
-                this.ctx.fillStyle = '#070a0f';
-                for (let px = (p.x % 80); px < p.width; px += 80) {
-                    const rpx = p.x + px - cameraX;
-                    if (rpx >= -10 && rpx <= this.width + 10) {
-                        this.ctx.fillRect(rpx, p.y + 4, 2, p.height - 4);
+                // =============================================================
+                // --- FASE 3: PISO DE AÇO PESADO INDUSTRIAL DA FÁBRICA MILITAR ---
+                // =============================================================
+                // 1. Fundação de chapas de aço naval grafite escuro com gradiente
+                const steelGrad = this.ctx.createLinearGradient(0, p.y, 0, p.y + p.height);
+                steelGrad.addColorStop(0, '#1c222c');
+                steelGrad.addColorStop(0.2, '#141820');
+                steelGrad.addColorStop(0.7, '#0d1016');
+                steelGrad.addColorStop(1, '#07090d');
+                this.ctx.fillStyle = steelGrad;
+                this.ctx.fillRect(renderX, p.y, p.width, p.height);
+
+                // 2. Chapas Modulares de Aço (Plates de 120px) com Rebaixo e Rebites
+                const plateWidth = 120;
+                const startPlate = Math.floor(p.x / plateWidth) * plateWidth;
+                for (let px = startPlate; px < p.x + p.width; px += plateWidth) {
+                    const rpx = px - cameraX;
+                    if (rpx >= -30 && rpx <= this.width + 30) {
+                        // Junta de expansão entre chapas
+                        this.ctx.fillStyle = '#080a0f';
+                        this.ctx.fillRect(rpx, p.y + 8, 3, p.height - 8);
+                        // Chanfro metálico de reflexo da junta
+                        this.ctx.fillStyle = '#343f52';
+                        this.ctx.fillRect(rpx + 3, p.y + 8, 1.5, p.height - 8);
+
+                        // Rebites industriais reforçados (Hex Bolts / Rivets)
+                        const rivetYs = [p.y + 16, p.y + 38, p.y + 60, p.y + 82];
+                        for (const ry of rivetYs) {
+                            // Sombra do rebite
+                            this.ctx.fillStyle = '#080a0f';
+                            this.ctx.fillRect(rpx + 9, ry + 1, 4, 4);
+                            this.ctx.fillRect(rpx + plateWidth - 11, ry + 1, 4, 4);
+                            // Corpo do rebite de aço
+                            this.ctx.fillStyle = '#4a576b';
+                            this.ctx.fillRect(rpx + 8, ry, 4, 4);
+                            this.ctx.fillRect(rpx + plateWidth - 12, ry, 4, 4);
+                            // Brilho do rebite
+                            this.ctx.fillStyle = '#899bb5';
+                            this.ctx.fillRect(rpx + 8, ry, 2, 2);
+                            this.ctx.fillRect(rpx + plateWidth - 12, ry, 2, 2);
+                        }
+
+                        // Textura de Chapa Xadrez Antiderrapante (Diamond Tread Pattern)
+                        this.ctx.fillStyle = 'rgba(56, 68, 88, 0.35)';
+                        for (let dx = 22; dx < plateWidth - 22; dx += 14) {
+                            for (let dy = p.y + 16; dy < p.y + 44; dy += 10) {
+                                this.ctx.fillRect(rpx + dx, dy, 5, 2);
+                                this.ctx.fillRect(rpx + dx + 6, dy + 5, 5, 2);
+                            }
+                        }
+
+                        // Grelhas de Drenagem e Ventilação em placas selecionadas (a cada 360px)
+                        if (Math.floor(px / plateWidth) % 3 === 2) {
+                            const gx = rpx + 28;
+                            const gy = p.y + 52;
+                            const gw = 64;
+                            const gh = 32;
+                            // Poço escuro da grelha
+                            this.ctx.fillStyle = '#06070a';
+                            this.ctx.fillRect(gx, gy, gw, gh);
+                            this.ctx.strokeStyle = '#27303f';
+                            this.ctx.lineWidth = 2;
+                            this.ctx.strokeRect(gx, gy, gw, gh);
+
+                            // Barras de ventilação de ferro fundido
+                            this.ctx.fillStyle = '#3c4759';
+                            for (let bx = gx + 5; bx < gx + gw - 4; bx += 8) {
+                                this.ctx.fillRect(bx, gy + 2, 3, gh - 4);
+                                this.ctx.fillStyle = '#1c222c';
+                                this.ctx.fillRect(bx + 3, gy + 2, 1, gh - 4);
+                                this.ctx.fillStyle = '#3c4759';
+                            }
+                        }
                     }
                 }
-                // Linha de neon ciano futurista no solo
-                this.ctx.fillStyle = '#00f0ff';
-                this.ctx.fillRect(renderX, p.y, p.width, 3);
-                this.ctx.fillStyle = 'rgba(0, 240, 255, 0.2)';
-                this.ctx.fillRect(renderX, p.y, p.width, 7);
+
+                // Linha de costura horizontal das chapas
+                this.ctx.fillStyle = '#090c12';
+                this.ctx.fillRect(renderX, p.y + 48, p.width, 2.5);
+                this.ctx.fillStyle = 'rgba(78, 93, 117, 0.25)';
+                this.ctx.fillRect(renderX, p.y + 50.5, p.width, 1.5);
+
+                // 3. Faixa Zebrada de Perigo / Alerta Industrial (Hazard Safety Curb)
+                const stripeW = 16;
+                const curbHeight = 8;
+                // Base de aço do trilho superior
+                this.ctx.fillStyle = '#2b3443';
+                this.ctx.fillRect(renderX, p.y, p.width, curbHeight);
+
+                // Faixas diagonais amarelas e pretas industriais desgastadas
+                const startStripe = Math.floor(p.x / stripeW) * stripeW;
+                for (let sx = startStripe; sx < p.x + p.width; sx += stripeW) {
+                    const rsx = sx - cameraX;
+                    if (rsx >= -stripeW && rsx <= this.width + stripeW) {
+                        const isYellow = (Math.floor(sx / stripeW) % 2 === 0);
+                        this.ctx.fillStyle = isYellow ? '#dca216' : '#1c2026';
+                        this.ctx.beginPath();
+                        this.ctx.moveTo(rsx, p.y + curbHeight);
+                        this.ctx.lineTo(rsx + 6, p.y);
+                        this.ctx.lineTo(rsx + stripeW + 6, p.y);
+                        this.ctx.lineTo(rsx + stripeW, p.y + curbHeight);
+                        this.ctx.closePath();
+                        this.ctx.fill();
+                    }
+                }
+
+                // Friso superior de desgaste metálico da borda
+                this.ctx.fillStyle = 'rgba(255, 255, 255, 0.28)';
+                this.ctx.fillRect(renderX, p.y, p.width, 1.5);
+                // Sombra de reforço sob a faixa zebrada
+                this.ctx.fillStyle = '#090c10';
+                this.ctx.fillRect(renderX, p.y + curbHeight, p.width, 2.5);
             } else if (p.type === 'SCAFFOLD') {
-                // Andaimes industriais da fábrica com neon magenta
-                this.ctx.fillStyle = '#ff0055';
+                // =============================================================
+                // --- FASE 3: PASSARELA INDUSTRIAL / ANDAIME DE VIGA DE AÇO ---
+                // =============================================================
+                // 1. Viga Estrutural I-Beam de Aço Militar
+                this.ctx.fillStyle = '#171c26';
+                this.ctx.fillRect(renderX, p.y, p.width, p.height);
+
+                // Flange superior de aço com reflexo
+                this.ctx.fillStyle = '#3a4659';
                 this.ctx.fillRect(renderX, p.y, p.width, 3);
-                this.ctx.fillStyle = 'rgba(255, 0, 85, 0.25)';
-                this.ctx.fillRect(renderX, p.y, p.width, 6);
+                this.ctx.fillStyle = '#6a7d99';
+                this.ctx.fillRect(renderX, p.y, p.width, 1);
+
+                // Gradeado antiderrapante da passarela metálica
+                this.ctx.fillStyle = '#262f3f';
+                for (let gx = (p.x % 10); gx < p.width; gx += 10) {
+                    const rgx = p.x + gx - cameraX;
+                    if (rgx >= -10 && rgx <= this.width + 10) {
+                        this.ctx.fillRect(rgx, p.y + 4, 4, 8);
+                    }
+                }
+
+                // Alma central da viga I de sustentação
+                this.ctx.fillStyle = '#11151d';
+                this.ctx.fillRect(renderX, p.y + 13, p.width, p.height - 13);
+
+                // Flange inferior da viga
+                this.ctx.fillStyle = '#2b3443';
+                this.ctx.fillRect(renderX, p.y + p.height - 3, p.width, 3);
+
+                // Rebites de fixação nas extremidades e a cada 60px
+                for (let bx = 6; bx < p.width - 6; bx += 50) {
+                    const rbx = p.x + bx - cameraX;
+                    if (rbx >= -10 && rbx <= this.width + 10) {
+                        this.ctx.fillStyle = '#0a0d13';
+                        this.ctx.fillRect(rbx, p.y + 15, 3, 3);
+                        this.ctx.fillStyle = '#5c6c82';
+                        this.ctx.fillRect(rbx - 1, p.y + 14, 3, 3);
+                    }
+                }
+
+                // Cantoneiras de segurança zebradas nas extremidades da passarela
+                this.ctx.fillStyle = '#dca216';
+                this.ctx.fillRect(renderX, p.y, 8, p.height);
+                this.ctx.fillRect(renderX + p.width - 8, p.y, 8, p.height);
+                this.ctx.fillStyle = '#1c2026';
+                this.ctx.fillRect(renderX + 2, p.y + 4, 4, 4);
+                this.ctx.fillRect(renderX + 2, p.y + 12, 4, 4);
+                this.ctx.fillRect(renderX + p.width - 6, p.y + 4, 4, 4);
+                this.ctx.fillRect(renderX + p.width - 6, p.y + 12, 4, 4);
             } else {
                 this.ctx.fillStyle = p.borderTop || '#ffffff';
                 this.ctx.fillRect(renderX, p.y, p.width, 4);
